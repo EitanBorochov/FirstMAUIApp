@@ -7,65 +7,68 @@
     Title="Hello, Eitan"
     >
     <ContentPage.Content>
-        <Grid>
-            <Label HeightRequest="40"/>
+        <Grid RowDefinitions="Auto, *">
+            <Label Text="Spaces" FontSize="32" Margin="20" FontFamily="TitleBold" Grid.Row="0"/>
             
-            <CollectionView
-                x:Name="HomeSpacesTiles"
-                Margin="20"
-                SelectionMode="None"
-                ItemsSource="{Binding Spaces}">
-                
-                <CollectionView.ItemsLayout>
-                    <GridItemsLayout Orientation="Vertical" VerticalItemSpacing="15" Span="2" HorizontalItemSpacing="15">
-                    </GridItemsLayout>
-                </CollectionView.ItemsLayout>
-
-
-                <CollectionView.ItemTemplate>
-                    <DataTemplate>
-                        <Border StrokeShape="RoundRectangle 18" Padding="15" BackgroundColor="{Binding Color}">
-                            <VerticalStackLayout Spacing="5" VerticalOptions="Center">
-                                <Label Text="{Binding Icon}" FontSize="25"/>
-                                <Label Text="{Binding Name}" FontSize="18"/>
-                            </VerticalStackLayout>
-                        </Border>
-                    </DataTemplate>
-                </CollectionView.ItemTemplate>
+            <Grid Grid.Row="1">
+                <CollectionView
+                    x:Name="HomeSpacesTiles"
+                    Margin="20"
+                    SelectionMode="None"
+                    ItemsSource="{Binding Spaces}">
+                    
+                    <CollectionView.ItemsLayout>
+                        <GridItemsLayout Orientation="Vertical" VerticalItemSpacing="15" Span="2" HorizontalItemSpacing="15">
+                        </GridItemsLayout>
+                    </CollectionView.ItemsLayout>
     
-            </CollectionView>
+    
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate>
+                            <Border StrokeShape="RoundRectangle 18" Padding="15" BackgroundColor="{Binding Color}">
+                                <VerticalStackLayout Spacing="5" VerticalOptions="Center">
+                                    <Label Text="{Binding Icon}" FontSize="25"/>
+                                    <Label Text="{Binding Name}" FontSize="18"/>
+                                </VerticalStackLayout>
+                            </Border>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+        
+                </CollectionView>
+                
+                <views:NewSpacePopup x:Name="NewSpacePopup" IsVisible="False"/>
+                <views:IconPickerView x:Name="IconPicker" IsVisible="False"/>
+                <views:ColorPickerView x:Name="ColorPicker" IsVisible="False"/>
             
-            <views:NewSpacePopup x:Name="NewSpacePopup" IsVisible="False"/>
-            <views:IconPickerView x:Name="IconPicker" IsVisible="False"/>
-            <views:ColorPickerView x:Name="ColorPicker" IsVisible="False"/>
-        
-            <VerticalStackLayout x:Name="CreateOptionsStack"
-                                 HorizontalOptions="End"
-                                 VerticalOptions="End"
-                                 Spacing="15"
-                                 Margin="0,0,25,100"
-                                 IsVisible="False"
-                                 Scale="0">
-        
-                <Button Text="New Space" Clicked="OnNewSpaceClicked" Style="{StaticResource PrimaryActionButton}"/>
-                <Button Text="New Note" Style="{StaticResource PrimaryActionButton}"/>
-                <Button Text="New To-Do" Style="{StaticResource PrimaryActionButton}"/>
-        
-            </VerticalStackLayout>
-        
-            <Button x:Name="CreateButton"
-                    Text="+"
-                    FontSize="32"
-                    FontAttributes="Bold"
-                    Clicked="OnCreateClick"
-                    HorizontalOptions="End"
-                    VerticalOptions="End"
-                    HeightRequest="60"
-                    WidthRequest="60"
-                    CornerRadius="30"
-                    Margin="0,0,20,20"
-                    Style="{StaticResource PrimaryActionButton}"/>
+                <VerticalStackLayout x:Name="CreateOptionsStack"
+                                     HorizontalOptions="End"
+                                     VerticalOptions="End"
+                                     Spacing="15"
+                                     Margin="0,0,25,100"
+                                     IsVisible="False"
+                                     Scale="0">
+            
+                    <Button Text="New Space" Clicked="OnNewSpaceClicked" Style="{StaticResource PrimaryActionButton}"/>
+                    <Button Text="New Note" Style="{StaticResource PrimaryActionButton}"/>
+                    <Button Text="New To-Do" Style="{StaticResource PrimaryActionButton}"/>
+            
+                </VerticalStackLayout>
+            
+                <Button x:Name="CreateButton"
+                        Text="+"
+                        FontSize="32"
+                        FontAttributes="Bold"
+                        Clicked="OnCreateClick"
+                        HorizontalOptions="End"
+                        VerticalOptions="End"
+                        HeightRequest="60"
+                        WidthRequest="60"
+                        CornerRadius="30"
+                        Margin="0,0,20,20"
+                        Style="{StaticResource PrimaryActionButton}"/>
+            </Grid>
         </Grid>
+        
         
     </ContentPage.Content>
 </ContentPage>

@@ -52,11 +52,30 @@
         <MauiImage Update="Resources\Images\dotnet_bot.png" Resize="True" BaseSize="300,185"/>
 
         <!-- Custom Fonts -->
-        <MauiFont Include="Resources\Fonts\*"/>
+        <MauiFont Include="Resources\Fonts\**\*.ttf" />
+        <MauiFont Include="Resources\Fonts\**\*.otf" />
 
         <!-- Raw Assets (also remove the "Resources\Raw" prefix) -->
         <MauiAsset Include="Resources\Raw\**" LogicalName="%(RecursiveDir)%(Filename)%(Extension)"/>
         <EmbeddedResource Include="Resources\Raw\emojis.txt" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <MauiFont Include="Resources\Fonts\Text\Text-Black.ttf" />
+        <MauiFont Include="Resources\Fonts\Text\Text-Bold.ttf" />
+        <MauiFont Include="Resources\Fonts\Text\Text-ExtraBold.ttf" />
+        <MauiFont Include="Resources\Fonts\Text\Text-ExtraLight.ttf" />
+        <MauiFont Include="Resources\Fonts\Text\Text-Italic.ttf" />
+        <MauiFont Include="Resources\Fonts\Text\Text-Light.ttf" />
+        <MauiFont Include="Resources\Fonts\Text\Text-LightItalic.ttf" />
+        <MauiFont Include="Resources\Fonts\Text\Text-Regular.ttf" />
+
+        <MauiFont Include="Resources\Fonts\Title\Title-Bold.ttf" />
+        <MauiFont Include="Resources\Fonts\Title\Title-ExtraBold.ttf" />
+        <MauiFont Include="Resources\Fonts\Title\Title-Light.ttf" />
+        <MauiFont Include="Resources\Fonts\Title\Title-Medium.ttf" />
+        <MauiFont Include="Resources\Fonts\Title\Title-Regular.ttf" />
+        <MauiFont Include="Resources\Fonts\Title\Title-SemiBold.ttf" />
     </ItemGroup>
 
     <ItemGroup>
