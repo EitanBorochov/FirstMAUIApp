@@ -19,7 +19,8 @@ public partial class IconPickerView : ContentView
         var assembly = Assembly.GetExecutingAssembly();
 
         using var stream = assembly.GetManifestResourceStream(resourcePath);
-        if (stream is null) return;
+        if (stream is null)
+            return;
         using var reader = new StreamReader(stream);
 
         string line;

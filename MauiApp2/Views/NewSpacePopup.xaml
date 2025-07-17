@@ -5,25 +5,30 @@
     
     <Frame VerticalOptions="Center" HorizontalOptions="Center"
            BackgroundColor="{AppThemeBinding Light={StaticResource Gray100}, Dark={StaticResource Gray900}}"
-           CornerRadius="18" Padding="20" HasShadow="False" WidthRequest="300">
+           CornerRadius="18" Padding="20" HasShadow="True" WidthRequest="300">
         
         <VerticalStackLayout Spacing="20">
             <Label Text="Create a New Space" FontSize="Large" FontAttributes="Bold"/>
 
-            <HorizontalStackLayout Spacing="10" VerticalOptions="Center">
-
+            <Grid ColumnDefinitions="Auto,*" ColumnSpacing="10">
                 <Label x:Name="SelectedIconLabel" Text="🫥" FontSize="32" VerticalOptions="Center">
                     <Label.GestureRecognizers>
                         <TapGestureRecognizer Tapped="OnChooseIconClicked"/>
                     </Label.GestureRecognizers>
                 </Label>
         
-                <Entry x:Name="SpaceNameEntry" Placeholder="Space Name" VerticalOptions="Center" HorizontalOptions="FillAndExpand"/>
+                <Entry x:Name="SpaceNameEntry" Grid.Column="1" Placeholder="Space Name" VerticalOptions="Center" HorizontalOptions="FillAndExpand"/>
         
-            </HorizontalStackLayout>
+            </Grid>
+            
+            <Button x:Name="ColorPickerButton"
+                    Clicked="OnChooseColorClicked"
+                    BackgroundColor="{Binding SelectedColor}"
+                    BorderColor="{AppThemeBinding Light={StaticResource Gray900}, Dark={StaticResource Gray200}}"
+                    BorderWidth="1" />
     
             <Grid ColumnDefinitions="*,10,*">
-                <Button Grid.Column="0" Text="Cancel" Clicked="OnCancelClicked"/>
+                <Button Grid.Column="0" Text="Cancel" Clicked="OnCancelClicked" BackgroundColor="{StaticResource Gray600}"/>
                 <Button Grid.Column="2" Text="Done" Clicked="OnSaveClicked"/>
             </Grid>
         </VerticalStackLayout>

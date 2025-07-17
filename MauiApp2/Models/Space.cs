@@ -8,8 +8,10 @@ namespace MauiApp2.Models
     {
         public string Name { get; set; }
         public string Icon { get; set; }
+        public Color Color { get; set; }
 
         // We will add lists for notes and to-do items here later
+        // public ObservableCollection<Folder> Folders { get; set; }
         // public ObservableCollection<string> Notes { get; set; }
         // public ObservableCollection<string> TodoItems { get; set; }
     }

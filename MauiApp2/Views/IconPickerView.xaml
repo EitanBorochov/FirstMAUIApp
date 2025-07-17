@@ -4,7 +4,7 @@
              x:Class="MauiApp2.Views.IconPickerView">
     <Frame VerticalOptions="Center" HorizontalOptions="Center" 
            BackgroundColor="{AppThemeBinding Light={StaticResource White}, Dark={StaticResource Gray900}}"
-           CornerRadius="15" Padding="5" HasShadow="True"
+           CornerRadius="18" Padding="5" HasShadow="True"
            HeightRequest="400" WidthRequest="320">
 
         <CollectionView x:Name="EmojiCollectionView"

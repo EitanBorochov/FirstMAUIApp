@@ -3,18 +3,39 @@
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:views="clr-namespace:MauiApp2.Views"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    x:Class="MauiApp2.MainPage" 
+    x:Class="MauiApp2.HomePage" 
     Title="Hello, Eitan"
     >
     <ContentPage.Content>
         <Grid>
-            <VerticalStackLayout Spacing="25" Padding="30" VerticalOptions="Center">
-                <Label Text="Click on the + to Add Spaces" FontSize="Large" HorizontalOptions="Center"/>
-            </VerticalStackLayout>
+            <CollectionView
+                x:Name="HomeSpacesTiles"
+                Margin="10"
+                SelectionMode="None"
+                ItemsSource="{Binding Spaces}">
+                <CollectionView.ItemsLayout>
+                    <GridItemsLayout Orientation="Vertical" VerticalItemSpacing="15" Span="2" HorizontalItemSpacing="15">
+                    </GridItemsLayout>
+                </CollectionView.ItemsLayout>
+
+
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <Border StrokeShape="RoundRectangle 18" Padding="15" BackgroundColor="{Binding Color}">
+                            <VerticalStackLayout Spacing="5" VerticalOptions="Center">
+                                <Label Text="{Binding Icon}" FontSize="25"/>
+                                <Label Text="{Binding Name}" FontSize="18"/>
+                            </VerticalStackLayout>
+                        </Border>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+    
+            </CollectionView>
             
             <views:NewSpacePopup x:Name="NewSpacePopup" IsVisible="False"/>
             <views:IconPickerView x:Name="IconPicker" IsVisible="False"/>
-
+            <views:ColorPickerView x:Name="ColorPicker" IsVisible="False"/>
+        
             <VerticalStackLayout x:Name="CreateOptionsStack"
                                  HorizontalOptions="End"
                                  VerticalOptions="End"
@@ -22,13 +43,13 @@
                                  Margin="0,0,25,100"
                                  IsVisible="False"
                                  Scale="0">
-
+        
                 <Button Text="New Space" Clicked="OnNewSpaceClicked"/>
                 <Button Text="New Note"/>
                 <Button Text="New To-Do"/>
-
+        
             </VerticalStackLayout>
-            
+        
             <Button x:Name="CreateButton"
                     Text="+"
                     FontSize="32"
@@ -40,7 +61,6 @@
                     WidthRequest="60"
                     CornerRadius="30"
                     Margin="0,0,20,20" />
-            
         </Grid>
         
     </ContentPage.Content>

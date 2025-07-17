@@ -1,25 +1,29 @@
 ﻿using MauiApp2.Managers;
 using MauiApp2.Models;  
 using MauiApp2.Views;
+using Microsoft.Maui.Dispatching;
 
 namespace MauiApp2;
 
-public partial class MainPage : ContentPage
+public partial class HomePage : ContentPage
 {
-    int count = 0;
-
     private bool isCreateMenuOpen = false;
+    private IDispatcherTimer greetingsTimer;
 
-    public MainPage()
+    public HomePage()
     {
         InitializeComponent();
-        this.BindingContext = SpaceManager.Current;
+        
+        // This binds the data from the spaces manager to this page
+        this.BindingContext = SpaceManager.Main;
 
-        // Tell the MainPage to listen for the popup's events
+        // Tell the HomePage to listen for the popup's events
         NewSpacePopup.SaveClicked += OnPopupSaveClicked;
         NewSpacePopup.CancelClicked += OnPopupCancelClicked;
         NewSpacePopup.ChooseIconClicked += OnPopupChooseIconClicked;
+        NewSpacePopup.ChooseColorClicked += OnPopupChooseColorClicked;
         IconPicker.IconSelected += OnIconPickerIconSelected;
+        ColorPicker.ColorSelected += OnColorPickerColorSelected;
 
         UpdateGreeting();
     }
@@ -27,23 +31,47 @@ public partial class MainPage : ContentPage
     private void UpdateGreeting()
     {
         int currentHour = DateTime.Now.Hour;
+
+        if (currentHour >= 5 && currentHour < 12) // 5:00 AM - 11:59 AM
+        {
+            Title = "☀️ Good Morning, Eitan";
+        }
+        else if (currentHour >= 12 && currentHour < 18) // 12:00 PM - 5:59 PM
+        {
+            Title = "🌤️ Good Afternoon, Eitan";
+        }
+        else if (currentHour >= 18 && currentHour < 22) // 6:00 PM - 9:59 PM
+        {
+            Title = "🌙 Good Evening, Eitan";
+        }
+        else // 10:00 PM - 4:59 AM
+        {
+            Title = "😴 Good Night, Eitan";
+        }
+    }
+
+    protected override void OnAppearing()
+    {
+        base.OnAppearing();
+
+        StartGreetingsTimer();
+    }
+
+    protected override void OnDisappearing()
+    {
+        base.OnDisappearing();
         
-        if (currentHour >= 5 && currentHour < 12)
-        {
-            Title = "Good Morning, Eitan";
-        }
-        else if (currentHour >= 12 && currentHour < 6)
-        {
-            Title = "Good Afternoon, Eitan";
-        }
-        else if (currentHour >= 6 && currentHour < 10)
-        {
-            Title = "Good Evening, Eitan";
-        }
-        else
-        {
-            Title = "Good Night, Eitan";
-        }
+        greetingsTimer?.Stop();
+    }
+
+    private void StartGreetingsTimer()
+    {
+        UpdateGreeting();
+
+        greetingsTimer = Dispatcher.CreateTimer();
+        greetingsTimer.Interval = TimeSpan.FromMinutes(1);
+        greetingsTimer.Tick += (sender, e) => UpdateGreeting();
+        greetingsTimer.Start();
     }
 
     #region Create button
@@ -100,10 +128,25 @@ public partial class MainPage : ContentPage
         NewSpacePopup.IsVisible = true;
     }
     
-    private void OnPopupSaveClicked(object sender, EventArgs e)
+    private async void OnPopupSaveClicked(object sender, EventArgs e)
     {
+        string newName = NewSpacePopup.SpaceName?.Trim();
+
+        if (string.IsNullOrWhiteSpace(newName))
+        {
+            await DisplayAlert("Name Required", "Please enter a name for your space.", "OK");
+            return;
+        }
+
+        if (SpaceManager.Main.Spaces.Any(space => space.Name.Equals(newName, StringComparison.OrdinalIgnoreCase)))
+        {
+            await DisplayAlert("Space Already Exists",
+                "A space with that name already exists. Please choose a different name", "OK.");
+            return;
+        }
+        
         // This is where the action happens. We get the data from the popup's properties.
-        SpaceManager.Current.AddSpace(NewSpacePopup.SpaceName, NewSpacePopup.SpaceIcon);
+        SpaceManager.Main.AddSpace(newName, NewSpacePopup.SpaceIcon, Colors.White);
 
         // After saving, we hide the popup.
         NewSpacePopup.IsVisible = false;
@@ -117,6 +160,8 @@ public partial class MainPage : ContentPage
     
     private void OnPopupChooseIconClicked(object sender, EventArgs e)
     {
+        NewSpacePopup.IsVisible = false;
+        
         // Show the icon picker popup
         IconPicker.IsVisible = true;
     }
@@ -128,6 +173,24 @@ public partial class MainPage : ContentPage
         NewSpacePopup.SelectedIcon = selectedIcon;
         // Hide the icon picker
         IconPicker.IsVisible = false;
+
+        NewSpacePopup.IsVisible = true;
+    }
+
+    private void OnPopupChooseColorClicked(object sender, EventArgs e)
+    {
+        NewSpacePopup.IsVisible = false;
+        
+        ColorPicker.IsVisible = true;
+    }
+
+    private void OnColorPickerColorSelected(object sender, Color selectedColor)
+    {
+        NewSpacePopup.SelectedColor = selectedColor;
+
+        ColorPicker.IsVisible = false;
+
+        NewSpacePopup.IsVisible = true;
     }
 
 
