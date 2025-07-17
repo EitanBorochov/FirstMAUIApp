@@ -146,7 +146,7 @@ public partial class HomePage : ContentPage
         }
         
         // This is where the action happens. We get the data from the popup's properties.
-        SpaceManager.Main.AddSpace(newName, NewSpacePopup.SpaceIcon, Colors.White);
+        SpaceManager.Main.AddSpace(newName, NewSpacePopup.SpaceIcon, NewSpacePopup.SelectedColor);
 
         // After saving, we hide the popup.
         NewSpacePopup.IsVisible = false;

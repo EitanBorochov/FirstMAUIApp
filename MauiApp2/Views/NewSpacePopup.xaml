@@ -29,7 +29,7 @@
     
             <Grid ColumnDefinitions="*,10,*">
                 <Button Grid.Column="0" Text="Cancel" Clicked="OnCancelClicked" BackgroundColor="{StaticResource Gray600}"/>
-                <Button Grid.Column="2" Text="Done" Clicked="OnSaveClicked"/>
+                <Button Grid.Column="2" Text="Done" Clicked="OnSaveClicked" Style="{StaticResource PrimaryActionButton}"/>
             </Grid>
         </VerticalStackLayout>
         

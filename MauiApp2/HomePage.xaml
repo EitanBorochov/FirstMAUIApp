@@ -8,11 +8,14 @@
     >
     <ContentPage.Content>
         <Grid>
+            <Label HeightRequest="40"/>
+            
             <CollectionView
                 x:Name="HomeSpacesTiles"
-                Margin="10"
+                Margin="20"
                 SelectionMode="None"
                 ItemsSource="{Binding Spaces}">
+                
                 <CollectionView.ItemsLayout>
                     <GridItemsLayout Orientation="Vertical" VerticalItemSpacing="15" Span="2" HorizontalItemSpacing="15">
                     </GridItemsLayout>
@@ -44,9 +47,9 @@
                                  IsVisible="False"
                                  Scale="0">
         
-                <Button Text="New Space" Clicked="OnNewSpaceClicked"/>
-                <Button Text="New Note"/>
-                <Button Text="New To-Do"/>
+                <Button Text="New Space" Clicked="OnNewSpaceClicked" Style="{StaticResource PrimaryActionButton}"/>
+                <Button Text="New Note" Style="{StaticResource PrimaryActionButton}"/>
+                <Button Text="New To-Do" Style="{StaticResource PrimaryActionButton}"/>
         
             </VerticalStackLayout>
         
@@ -60,7 +63,8 @@
                     HeightRequest="60"
                     WidthRequest="60"
                     CornerRadius="30"
-                    Margin="0,0,20,20" />
+                    Margin="0,0,20,20"
+                    Style="{StaticResource PrimaryActionButton}"/>
         </Grid>
         
     </ContentPage.Content>

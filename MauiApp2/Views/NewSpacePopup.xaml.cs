@@ -5,7 +5,7 @@ using System.Runtime.CompilerServices;
 
 namespace MauiApp2.Views;
 
-public partial class NewSpacePopup : ContentView
+public partial class NewSpacePopup : ContentView, INotifyPropertyChanged
 {
     // Define events that the main page can listen for
     public event EventHandler SaveClicked;
@@ -22,6 +22,7 @@ public partial class NewSpacePopup : ContentView
         {
             _icon = value;
             SelectedIconLabel.Text = _icon; // Update the UI
+            OnPropertyChanged();
         }
     }
     
@@ -92,6 +93,10 @@ public partial class NewSpacePopup : ContentView
     
     // --- INotifyPropertyChanged Implementation ---
     public event PropertyChangedEventHandler PropertyChanged;
-    void OnPropertyChanged([CallerMemberName] string name = null) =>
-        PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
+
+    // [CallerMemberName] automatically gets the name of the property that called this method ("SelectedColor").
+    protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
+    {
+        PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+    }
 }
