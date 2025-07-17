@@ -1,28 +1,47 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage 
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:views="clr-namespace:MauiApp2.Views"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     x:Class="MauiApp2.MainPage" 
-    Title="My Dashboard"
+    Title="Hello, Eitan"
     >
     <ContentPage.Content>
-        <Grid RowDefinitions="*,Auto">
-            <Label
-                x:Name="LabelClick"
-                BackgroundColor="BlueViolet"
-                HorizontalOptions="CenterAndExpand"
-                Text="Learning XAML Test"
-                FontSize="Large"
-                VerticalOptions="CenterAndExpand"
-                TextColor="White"
-                Padding="15"
-                />
-            <Button 
-                Grid.Row="1" 
-                Text="Click Me"
-                x:Name="ClickButton"
-                Clicked="OnCounterClicked"
-                />
+        <Grid>
+            <VerticalStackLayout Spacing="25" Padding="30" VerticalOptions="Center">
+                <Label Text="Click on the + to Add Spaces" FontSize="Large" HorizontalOptions="Center"/>
+            </VerticalStackLayout>
+            
+            <views:NewSpacePopup x:Name="NewSpacePopup" IsVisible="False"/>
+            <views:IconPickerView x:Name="IconPicker" IsVisible="False"/>
+
+            <VerticalStackLayout x:Name="CreateOptionsStack"
+                                 HorizontalOptions="End"
+                                 VerticalOptions="End"
+                                 Spacing="15"
+                                 Margin="0,0,25,100"
+                                 IsVisible="False"
+                                 Scale="0">
+
+                <Button Text="New Space" Clicked="OnNewSpaceClicked"/>
+                <Button Text="New Note"/>
+                <Button Text="New To-Do"/>
+
+            </VerticalStackLayout>
+            
+            <Button x:Name="CreateButton"
+                    Text="+"
+                    FontSize="32"
+                    FontAttributes="Bold"
+                    Clicked="OnCreateClick"
+                    HorizontalOptions="End"
+                    VerticalOptions="End"
+                    HeightRequest="60"
+                    WidthRequest="60"
+                    CornerRadius="30"
+                    Margin="0,0,20,20" />
+            
         </Grid>
+        
     </ContentPage.Content>
 </ContentPage>
